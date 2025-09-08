@@ -43,7 +43,7 @@ const basematched = computed(() => {
     outline: 2px solid blue;
 }
 
-.Powerball .extra {
+.powerball .extra {
     --_bg:red;
     --_color:white;
 }
@@ -55,6 +55,7 @@ div {
     display:flex;
     gap:.25rem;
     margin-block:.5rem;
+    justify-content: center;
 }
 
 </style>

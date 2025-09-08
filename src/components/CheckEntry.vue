@@ -5,14 +5,14 @@ import { ref, computed } from 'vue';
 
 
 const CURRENT_DRAWING:DRAWING = {
-    name: "Powerball",
+    name: "powerball",
     date: "2025-09-06",
     base: [11, 23, 44, 61, 62],
     extra: 17
 };
 
 const HOPES: PLAYER_ENTRIES = {
-    name: "Powerball",
+    name: "powerball",
     date: "2025-09-06",
     attempts: [
         {
