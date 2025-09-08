@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import type { DRAWING, PLAYER_ENTRIES } from '../types';
 import Result from './Result.vue';
-import { ref, computed } from 'vue';
-
+import { computed } from 'vue';
 
 const CURRENT_DRAWING:DRAWING = {
     name: "powerball",
