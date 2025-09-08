@@ -1,20 +1,15 @@
 <script setup lang="ts">
-import CheckEntry from './components/CheckEntry.vue';
-import EnterEntry from './components/EnterEntry.vue';
+
 </script>
 
 <template>
-  <EnterEntry/>
-
-  <CheckEntry/>
-
-<!--
-  <Result :entry="ENTRY1" :drawing="DRAWING"  />
-  <Result :entry="ENTRY2" :drawing="DRAWING"  />
-  <Result :entry="ENTRY3" :drawing="DRAWING"  />
-  <Result :entry="ENTRY4" :drawing="DRAWING"  />
-  <Result :entry="ENTRY5" :drawing="DRAWING"  />
-  -->
+  <nav>
+    <RouterLink to="/">Go to Home</RouterLink>
+    <RouterLink to="/check">Go to About</RouterLink>
+  </nav>
+  <main>
+    <RouterView />
+  </main>
 </template>
 
 <style scoped>
