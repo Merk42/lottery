@@ -1,28 +1,33 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import type { DRAWING, ATTEMPT } from '../types';
 const props = defineProps<{
-  entry: number[],
-  drawing: number[]
+  drawing: DRAWING,
+  attempt: ATTEMPT
 }>();
-const display = computed(() => {
-    return props.entry.map( num => {
+const basematched = computed(() => {
+    return props.attempt.base.map( num => {
         return {
             number: num,
-            matched: props.drawing.includes(num)
+            matched: props.drawing.base.includes(num)
         }
     })
 })
 </script>
 <template>
-    <div>
-    <template v-for="number in display">
-        <span :class="{'match': number.matched}" class="ball">{{ number.number }}</span>
-    </template>
+    <div :class="drawing.name">
+        <template v-for="number in basematched">
+            <span :class="{'match': number.matched}" class="ball">{{ number.number }}</span>
+        </template>
+        <span :class="{'match': attempt.extra === drawing.extra}" class="ball extra">{{ attempt.extra }}</span>
     </div>
 </template>
 <style scoped lang="css">
 .ball{
     --_size:1.5rem;
+    --_color:canvasText;
+    --_bg: canvas;
+    --_border:canvasText;
     display: inline-block;
     width:var(--_size);
     height: var(--_size);
@@ -30,14 +35,26 @@ const display = computed(() => {
     padding: .5rem;
     text-align: center;
     border-radius: 100vw;
-    border:2px solid canvasText;
+    border:2px solid var(--_color);
+    background-color: var(--_bg);
+    color:var(--_color)
 }
 .ball.match {
-    border-color:red;
+    outline: 2px solid blue;
+}
+
+.Powerball .extra {
+    --_bg:red;
+    --_color:white;
+}
+
+.Megamillions .extra {
+    --_bg:yellow;
 }
 div {
     display:flex;
     gap:.25rem;
     margin-block:.5rem;
 }
+
 </style>

@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import Result from './Result.vue';
 
-const HIGHEST = 69;
+const HIGHEST = 69; // 70 for mega millions
 const BASELENGTH = 5;
 
-const EXTRAHIGHEST = 26;
+const EXTRAHIGHEST = 26; // 24 for mega millions
 const EXTRALENGTH = 1;
 
 const baseNumbers = ref<number[]>([]);
@@ -15,9 +16,13 @@ const maxNumbers = computed(() => {
 const maxExtra = computed(() => {
     return extraNumber.value.length >= EXTRALENGTH;
 })
+
+const preview = computed(() => {
+    return baseNumbers.value.sort()
+})
 </script>
 <template>
-    <div class="base-grid">
+    <div class="base grid">
         <label class="ball" v-for="n in HIGHEST">
             {{ n }}
             <input
@@ -29,7 +34,7 @@ const maxExtra = computed(() => {
         </label>
     </div>
     <hr></hr>
-    <div>
+    <div class="extra grid">
         <label class="ball" v-for="n in EXTRAHIGHEST">
             {{ n }}
             <input
@@ -40,14 +45,13 @@ const maxExtra = computed(() => {
                 v-model="extraNumber" />
         </label>
     </div>
-        <pre>{{ baseNumbers }}</pre>
-
 </template>
 
 <style scoped lang="css">
-div {
-    display:grid;
-    grid-template-columns: repeat(10, minmax(0, 1fr));
+.grid {
+    --_across:10;
+    display:inline-grid;
+    grid-template-columns: repeat(var(--_across), minmax(0, 1fr));
     gap: .25rem;
 }
 .ball{
@@ -63,15 +67,26 @@ div {
     
 }
 .ball:not(:has(:disabled)) {
-cursor: pointer;
+    cursor: pointer;
 }
 .ball:has(:disabled) {
     border-color:gray
 }
+.extra .ball {
+    background-color: red;
+    color:white
+}
+
 .ball:has(:checked) {
     border-color:red;
 }
 input[type="checkbox"] {
     clip-path: inset(100%); /* Hides the element by clipping it entirely */
+}
+
+@media screen and (width <= 640px) {
+    .ball{
+        --_size:1rem;
+    }
 }
 </style>

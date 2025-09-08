@@ -1,23 +1,20 @@
 <script setup lang="ts">
+import CheckEntry from './components/CheckEntry.vue';
 import EnterEntry from './components/EnterEntry.vue';
-import Result from './components/Result.vue';
-const DRAWING = [11, 23, 44, 61, 62];
-const ENTRY1 = [5, 19 ,27, 36, 68];
-const ENTRY2 = [2, 15 ,59, 61, 69];
-const ENTRY3 = [9, 34, 57, 63, 68];
-const ENTRY4 = [25, 41, 49, 56, 67];
-const ENTRY5 = [4, 13 , 32, 34, 54];
 </script>
 
 <template>
   <EnterEntry/>
 
+  <CheckEntry/>
 
+<!--
   <Result :entry="ENTRY1" :drawing="DRAWING"  />
   <Result :entry="ENTRY2" :drawing="DRAWING"  />
   <Result :entry="ENTRY3" :drawing="DRAWING"  />
   <Result :entry="ENTRY4" :drawing="DRAWING"  />
   <Result :entry="ENTRY5" :drawing="DRAWING"  />
+  -->
 </template>
 
 <style scoped>
