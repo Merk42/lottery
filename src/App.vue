@@ -7,7 +7,7 @@
     <RouterLink to="/">Go to Home</RouterLink>
     <RouterLink to="/check">Go to About</RouterLink>
   </nav>
-  <main>
+  <main style="text-align: center;">
     <RouterView />
   </main>
 </template>

@@ -77,6 +77,9 @@ const DR = {
     grid-template-columns: repeat(var(--_across), minmax(0, 1fr));
     gap: .25rem;
 }
+.grid+.grid+div{
+    grid-column: -1 / 1;
+}
 .ball{
     --_size:1.5rem;
     display: inline-block;
@@ -93,7 +96,8 @@ const DR = {
     cursor: pointer;
 }
 .ball:has(:disabled) {
-    border-color:gray
+    border-color:gray;
+    color:gray;
 }
 .extra .ball {
     background-color: red;
