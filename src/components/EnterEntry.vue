@@ -2,15 +2,26 @@
 import { computed, ref } from 'vue'
 import Result from './Result.vue';
 import type { ATTEMPT } from '../types';
+import { useRoute } from 'vue-router'
 
-const HIGHEST = 69; // 70 for mega millions
+const route = useRoute()
+
 const BASELENGTH = 5;
 
-const EXTRAHIGHEST = 26; // 24 for mega millions
 const EXTRALENGTH = 1;
 
 const baseNumbers = ref<number[]>([]);
 const extraNumber = ref<number[]>([]);
+
+
+const highest = computed<number>(() => {
+    return TYPE.value === 'powerball' ? 69 : 70
+})
+
+const extrahighest = computed<number>(() => {
+    return TYPE.value === 'powerball' ? 26 : 24
+})
+
 const maxNumbers = computed(() => {
     return baseNumbers.value.length >= BASELENGTH;
 })
@@ -25,39 +36,43 @@ const preview = computed<ATTEMPT>(() => {
     }
 })
 
+const TYPE = computed<string>(() => {
+    return route.params.lottery.toString()
+})
+
 const DR = {
-    name:'powerball',
+    name: TYPE.value,
     date: "2025-09-06",
     base: [],
     extra: 0
 }
 </script>
 <template>
-    <div class="layout">
-<div class="base grid">
-        <label class="ball" v-for="n in HIGHEST">
-            {{ n }}
-            <input
-                type="checkbox"
-                :id="'id-'+n"
-                :value="n"
-                :disabled="maxNumbers && !baseNumbers.includes(n)"
-                v-model="baseNumbers" />
-        </label>
-    </div>
-    <div class="extra grid">
-        <label class="ball" v-for="n in EXTRAHIGHEST">
-            {{ n }}
-            <input
-                type="checkbox"
-                :id="'id-'+n"
-                :value="n"
-                :disabled="maxExtra && !extraNumber.includes(n)"
-                v-model="extraNumber" />
-        </label>
-    </div>
-
-    <Result :drawing="DR" :attempt="preview"/>
+    <div class="layout" :class="TYPE">
+        <h1>{{ TYPE }}</h1>
+        <div class="base grid">
+            <label class="ball" v-for="n in highest">
+                {{ n }}
+                <input
+                    type="checkbox"
+                    :id="'id-'+n"
+                    :value="n"
+                    :disabled="maxNumbers && !baseNumbers.includes(n)"
+                    v-model="baseNumbers" />
+            </label>
+        </div>
+        <div class="extra grid">
+            <label class="ball" v-for="n in extrahighest">
+                {{ n }}
+                <input
+                    type="checkbox"
+                    :id="'id-'+n"
+                    :value="n"
+                    :disabled="maxExtra && !extraNumber.includes(n)"
+                    v-model="extraNumber" />
+            </label>
+        </div>
+        <Result :drawing="DR" :attempt="preview"/>
     </div>
     
 
@@ -77,6 +92,7 @@ const DR = {
     grid-template-columns: repeat(var(--_across), minmax(0, 1fr));
     gap: .25rem;
 }
+h1,
 .grid+.grid+div{
     grid-column: -1 / 1;
 }
@@ -99,11 +115,13 @@ const DR = {
     border-color:gray;
     color:gray;
 }
-.extra .ball {
+.powerball .extra .ball {
     background-color: red;
     color:white
 }
-
+.megamillions .extra .ball {
+    background-color: yellow;
+}
 .ball:has(:checked) {
     outline:2px solid blue
 }

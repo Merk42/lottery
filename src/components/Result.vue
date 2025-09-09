@@ -19,7 +19,9 @@ const basematched = computed(() => {
         <template v-for="number in basematched">
             <span :class="{'match': number.matched}" class="ball">{{ number.number }}</span>
         </template>
-        <span :class="{'match': attempt.extra === drawing.extra}" class="ball extra">{{ attempt.extra }}</span>
+        <template v-if="!!attempt.extra">
+            <span :class="{'match': attempt.extra === drawing.extra}" class="ball extra">{{ attempt.extra }}</span>
+        </template>
     </div>
 </template>
 <style scoped lang="css">
@@ -48,7 +50,7 @@ const basematched = computed(() => {
     --_color:white;
 }
 
-.Megamillions .extra {
+.megamillions .extra {
     --_bg:yellow;
 }
 div {
