@@ -40,16 +40,52 @@ const TYPE = computed<string>(() => {
     return route.params.lottery.toString()
 })
 
+const DATE = computed<string>(() => {
+    return route.query.date?.toString() ?? ''
+})
+
 const DR = {
     name: TYPE.value,
     date: "2025-09-06",
     base: [],
     extra: 0
 }
+/*
+Mega Millions
+ Tuesday and Friday
+
+Powerball
+ Monday, Wednesday and Saturday
+*/
+
+function save() {
+    const local = localStorage.getItem(DATE.value);
+    let data;
+    if (local) {
+        data = JSON.parse(local)
+        data.attempts.push({
+            base: baseNumbers.value,
+            extra: extraNumber.value[0]
+        })
+    } else {
+        data = {
+            name: TYPE.value,
+            date: DATE.value,
+            attempts: [
+                {
+                    base: baseNumbers.value,
+                    extra: extraNumber.value[0]
+                }
+            ]
+        }
+    }
+    localStorage.setItem(DATE.value, JSON.stringify(data))
+}
 </script>
 <template>
     <div class="layout" :class="TYPE">
-        <h1>{{ TYPE }}</h1>
+        <h1 class="allcolumns">{{ TYPE }}</h1>
+        <p class="allcolumns">{{ DATE }}</p>
         <div class="base grid">
             <label class="ball" v-for="n in highest">
                 {{ n }}
@@ -72,10 +108,11 @@ const DR = {
                     v-model="extraNumber" />
             </label>
         </div>
-        <Result :drawing="DR" :attempt="preview"/>
+        <Result :drawing="DR" :attempt="preview" class="allcolumns"/>
+        <div class="allcolumns" style="text-align: center;">
+            <button @click="save()" :disabled="!maxNumbers || !maxExtra">submit</button>
+        </div>
     </div>
-    
-
 </template>
 
 <style scoped lang="css">
@@ -92,8 +129,7 @@ const DR = {
     grid-template-columns: repeat(var(--_across), minmax(0, 1fr));
     gap: .25rem;
 }
-h1,
-.grid+.grid+div{
+.allcolumns{
     grid-column: -1 / 1;
 }
 .ball{
