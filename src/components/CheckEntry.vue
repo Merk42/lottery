@@ -30,13 +30,19 @@ const CURRENT_DRAWING = computed<DRAWING|undefined>(() => {
     }
     return JSON.parse(LOCAL_DATA);
 })
+
+const MANUAL_LINK = computed(() => {
+    const LOTTERY = route.params.lottery;
+    const DATE = route.params.date;
+    return `/etc/lottery/enter/${LOTTERY}/${DATE}`
+})
 </script>
 <template>
     <h1>{{ route.params.lottery }}</h1>
     <p>{{ USDate }}</p>
     <div v-if="!CURRENT_DRAWING">
         <p>No data for {{ USDate }}</p>
-        <p>enter manually</p>
+        <RouterLink :to="{ path: MANUAL_LINK, query:{'drawing':'true'} }">Enter Manually</RouterLink>
     </div>
     <div v-if="t && CURRENT_DRAWING">
         <template v-for="ENTRY in t.attempts">

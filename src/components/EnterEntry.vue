@@ -58,7 +58,7 @@ Powerball
  Monday, Wednesday and Saturday
 */
 
-function save() {
+function saveEntry() {
     const local = localStorage.getItem(DATE.value);
     let data;
     if (local) {
@@ -80,6 +80,28 @@ function save() {
         }
     }
     localStorage.setItem(DATE.value, JSON.stringify(data))
+}
+
+function saveDrawing() {
+    let data = {
+        name: TYPE.value,
+        date: DATE.value,
+        attempts: [
+            {
+                base: baseNumbers.value,
+                extra: extraNumber.value[0]
+            }
+        ]
+    }
+    localStorage.setItem(`drawing-${DATE.value}`, JSON.stringify(data))
+}
+
+function save() {
+    if (route.query.drawing === 'true') {
+        saveDrawing();
+    } else {
+       saveEntry();
+    }
 }
 </script>
 <template>
