@@ -9,31 +9,97 @@ interface linkgroup {
 }
 
 const powerballlinks = computed<linkgroup>(() => {
+    let prev = "";
+    let next = "";
+    /*
+Powerball
+ Monday, Wednesday and Saturday
+ 1 3 6
+*/
     const TODAY_DOW = new Date().getDay();
-    const TODAY_DATE = new Date().getDate();
 
-    console.log("TODAY", TODAY_DOW, TODAY_DATE)
+    /*
+    01 next(1) prev(6)
+23 next(3) prev(1)
+456 next(6) prev(3)
+    */
+
+    switch (TODAY_DOW) {
+        case 0:
+        case 1:
+            next = nextDrawingDate(1);
+            prev = previousDrawingDate(6);
+            break;
+        case 2:
+        case 3:
+            next = nextDrawingDate(3);
+            prev = previousDrawingDate(1);
+            break;
+        case 4:
+        case 5:    
+        case 6:
+            next = nextDrawingDate(6);
+            prev = previousDrawingDate(3);
+            break;            
+    }
     return {
-        prev: "2025-09-06",
-        next: "2025-09-10",
+        prev: prev,
+        next: next,
         check: "/etc/lottery/powerball/check",
         enter: "/etc/lottery/powerball/enter"
     }
 })
 
 const megamillionslinks = computed<linkgroup>(() => {
-    const TODAY_DOW = new Date().getDay();
-    const TODAY_DATE = new Date().getDate();
+    let prev = "";
+    let next = "";
 
-    console.log("TODAY", TODAY_DOW, TODAY_DATE)
+    /*
+    Mega Millions
+ Tuesday and Friday
+ 2  5
+*/
+    const TODAY_DOW = new Date().getDay();
+
+    switch (TODAY_DOW) {
+        case 0:
+        case 1:
+        case 2:
+        case 6:
+            next = nextDrawingDate(2);
+            prev = previousDrawingDate(5);
+            break;
+        case 3:
+        case 4:
+        case 5:
+            next = nextDrawingDate(5);
+            prev = previousDrawingDate(2);
+            break;
+    }
+
     return {
-        prev: "2025-09-06",
-        next: "2025-09-10",
+        prev: prev,
+        next: next,
         check: "/etc/lottery/megamillions/check",
         enter: "/etc/lottery/megamillions/enter"
     }
 })
 
+
+function previousDrawingDate(target:number):string{
+    let date = new Date();
+    if (date.getDay() !== target) {
+        date.setDate(date.getDate() - ( date.getDay() == target ? 7 : (date.getDay() + (7 - target)) % 7 ))
+    }
+    return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${(date.getDate()).toString().padStart(2, '0')}`
+}
+function nextDrawingDate(target:number):string{
+    let date = new Date();
+    if (date.getDay() !== target) {
+        date.setDate(date.getDate() + ( date.getDay() == target ? 7 : (date.getDay() + (7 - target)) % 7 ))
+    }
+    return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${(date.getDate()).toString().padStart(2, '0')}`
+}
 </script>
 <template>
     <section>
