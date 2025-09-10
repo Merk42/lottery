@@ -11,19 +11,7 @@ interface linkgroup {
 const powerballlinks = computed<linkgroup>(() => {
     let prev = "";
     let next = "";
-    /*
-Powerball
- Monday, Wednesday and Saturday
- 1 3 6
-*/
     const TODAY_DOW = new Date().getDay();
-
-    /*
-    01 next(1) prev(6)
-23 next(3) prev(1)
-456 next(6) prev(3)
-    */
-
     switch (TODAY_DOW) {
         case 0:
         case 1:
@@ -53,14 +41,7 @@ Powerball
 const megamillionslinks = computed<linkgroup>(() => {
     let prev = "";
     let next = "";
-
-    /*
-    Mega Millions
- Tuesday and Friday
- 2  5
-*/
     const TODAY_DOW = new Date().getDay();
-
     switch (TODAY_DOW) {
         case 0:
         case 1:
