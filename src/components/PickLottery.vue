@@ -2,12 +2,11 @@
 import { computed } from 'vue';
 
 interface linkgroup {
-    prev:string;
-    next:string;
-    check: string;
-    enter: string;
+    checkprev:string;
+    checknext:string;
+    enterprev: string;
+    enternext: string;
 }
-
 const powerballlinks = computed<linkgroup>(() => {
     let prev = "";
     let next = "";
@@ -31,10 +30,10 @@ const powerballlinks = computed<linkgroup>(() => {
             break;            
     }
     return {
-        prev: prev,
-        next: next,
-        check: "/etc/lottery/powerball/check",
-        enter: "/etc/lottery/powerball/enter"
+        checkprev: `/etc/lottery/check/powerball/${prev}`,
+        checknext: `/etc/lottery/check/powerball/${next}`,
+        enterprev: `/etc/lottery/enter/powerball/${prev}`,
+        enternext: `/etc/lottery/enter/powerball/${next}`
     }
 })
 
@@ -59,10 +58,10 @@ const megamillionslinks = computed<linkgroup>(() => {
     }
 
     return {
-        prev: prev,
-        next: next,
-        check: "/etc/lottery/megamillions/check",
-        enter: "/etc/lottery/megamillions/enter"
+        checkprev: `/etc/lottery/check/megamillions/${prev}`,
+        checknext: `/etc/lottery/check/megamillions/${next}`,
+        enterprev: `/etc/lottery/enter/megamillions/${prev}`,
+        enternext: `/etc/lottery/enter/megamillions/${next}`
     }
 })
 
@@ -86,29 +85,29 @@ function nextDrawingDate(target:number):string{
     <section>
         <h2>Powerball</h2>
     
-<pre>{{ powerballlinks.prev }}</pre>
+
 <div class="links">
-<RouterLink :to="{ path: powerballlinks.check, query: {'date': powerballlinks.prev}}" >Check</RouterLink>    
-<RouterLink :to="{ path: powerballlinks.enter, query: {'date': powerballlinks.prev}}">Enter</RouterLink>
+<RouterLink :to="{ path: powerballlinks.checkprev }" >Check</RouterLink>    
+<RouterLink :to="{ path: powerballlinks.enterprev }">Enter</RouterLink>
 </div>
-<pre>{{ powerballlinks.next }}</pre>
+
 <div class="links">
-<RouterLink :to="{ path: powerballlinks.check, query: {'date': powerballlinks.next}}">Check</RouterLink>    
-<RouterLink :to="{ path: powerballlinks.enter, query: {'date': powerballlinks.next}}">Enter</RouterLink>
+<RouterLink :to="{ path: powerballlinks.checknext }">Check</RouterLink>    
+<RouterLink :to="{ path: powerballlinks.enternext }">Enter</RouterLink>
 </div>
 </section>
 <section>
     <h2>Megamillions</h2>
 
-<pre>{{ megamillionslinks.prev}}</pre>
+
 <div class="links">
-<RouterLink :to="{ path: megamillionslinks.check, query: {'date': megamillionslinks.prev}}">Check</RouterLink>    
-<RouterLink :to="{ path: megamillionslinks.enter, query: {'date': megamillionslinks.prev}}">Enter</RouterLink>
+<RouterLink :to="{ path: megamillionslinks.checkprev }">Check</RouterLink>    
+<RouterLink :to="{ path: megamillionslinks.enterprev }">Enter</RouterLink>
 </div>
-<pre>{{ megamillionslinks.next }}</pre>
+
 <div class="links">
-<RouterLink :to="{ path: megamillionslinks.check, query: {'date': megamillionslinks.next}}">Check</RouterLink>    
-<RouterLink :to="{ path: megamillionslinks.enter, query: {'date': megamillionslinks.next}}">Enter</RouterLink>
+<RouterLink :to="{ path: megamillionslinks.checknext }">Check</RouterLink>    
+<RouterLink :to="{ path: megamillionslinks.enternext }">Enter</RouterLink>
 </div>
 </section>
 </template>

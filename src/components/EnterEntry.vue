@@ -41,7 +41,7 @@ const TYPE = computed<string>(() => {
 })
 
 const DATE = computed<string>(() => {
-    return route.query.date?.toString() ?? ''
+    return route.params.date.toString()
 })
 
 const DR = {

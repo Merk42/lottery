@@ -6,19 +6,12 @@ import { useRoute } from 'vue-router'
 
 const route = useRoute()
 
-const CURRENT_DRAWING:DRAWING = {
-    name: "powerball",
-    date: "2025-09-06",
-    base: [11, 23, 44, 61, 62],
-    extra: 17
-};
-
 const USDate = computed(() => {
-    return new Intl.DateTimeFormat("en-US").format( new Date(CURRENT_DRAWING.date))
+    return new Intl.DateTimeFormat("en-US").format( new Date(route.params.date?.toString() ?? ''))
 })
 
 const DATE = computed<string>(() => {
-    return route.query.date?.toString() ?? ''
+    return route.params.date?.toString() ?? ''
 })
 
 const t = computed<PLAYER_ENTRIES|null>(() => {
@@ -28,11 +21,24 @@ const t = computed<PLAYER_ENTRIES|null>(() => {
     }
     return null
 })
+
+const CURRENT_DRAWING = computed<DRAWING|undefined>(() => {
+    const STORAGE_STRING = `drawing-${DATE.value}`;
+    const LOCAL_DATA = localStorage.getItem(STORAGE_STRING)
+    if (!LOCAL_DATA) {
+        return undefined
+    }
+    return JSON.parse(LOCAL_DATA);
+})
 </script>
 <template>
-    <h1>{{ CURRENT_DRAWING.name }}</h1>
+    <h1>{{ route.params.lottery }}</h1>
     <p>{{ USDate }}</p>
-    <div v-if="t">
+    <div v-if="!CURRENT_DRAWING">
+        <p>No data for {{ USDate }}</p>
+        <p>enter manually</p>
+    </div>
+    <div v-if="t && CURRENT_DRAWING">
         <template v-for="ENTRY in t.attempts">
             <Result :drawing="CURRENT_DRAWING" :attempt="ENTRY"/>
         </template>    

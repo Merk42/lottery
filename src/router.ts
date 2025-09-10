@@ -6,8 +6,8 @@ import PickLottery from './components/PickLottery.vue'
 
 const routes = [
   { path: '/etc/lottery', component: PickLottery },
-  { path: '/etc/lottery/:lottery/check', name: 'check', component: CheckEntry },
-  { path: '/etc/lottery/:lottery/enter', name: 'enter', component: EnterEntry },
+  { path: '/etc/lottery/check/:lottery/:date', name: 'check', component: CheckEntry },
+  { path: '/etc/lottery/enter/:lottery/:date', name: 'enter', component: EnterEntry },
   { path: '/:catchAll(.*)', component: PickLottery }
 ]
 
