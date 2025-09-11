@@ -15,7 +15,7 @@ const DATE = computed<string>(() => {
     return route.params.date?.toString() ?? ''
 })
 
-const t = computed<PLAYER_ENTRIES|null>(() => {
+const TRIES = computed<PLAYER_ENTRIES|null>(() => {
     const LOCAL = localStorage.getItem(DATE.value)
     if (LOCAL) {
         return JSON.parse(LOCAL)
@@ -42,11 +42,15 @@ const MANUAL_LINK = computed(() => {
     <h1>{{ route.params.lottery }}</h1>
     <p>{{ USDate }}</p>
     <div v-if="!CURRENT_DRAWING">
-        <p>No data for this drawing</p>
+        <p>No results for this drawing</p>
         <RouterLink :to="{ path: MANUAL_LINK, query:{'drawing':'true'} }">Enter Manually</RouterLink>
     </div>
-    <div v-if="t && CURRENT_DRAWING">
-        <template v-for="ENTRY in t.attempts">
+    <div v-if="!TRIES">
+        <p>No tries entered for this drawing</p>
+        <RouterLink :to="{ path: MANUAL_LINK }">Enter Tries</RouterLink>
+    </div>
+    <div v-if="TRIES && CURRENT_DRAWING">
+        <template v-for="ENTRY in TRIES.attempts">
             <Result :drawing="CURRENT_DRAWING" :attempt="ENTRY"/>
         </template>    
     </div>

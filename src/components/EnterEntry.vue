@@ -58,7 +58,7 @@ const DR = {
 }
 
 const title = computed(() => {
-    return isWinning ? 'Winning Numbers' : 'Your Entry'
+    return isWinning.value ? 'Winning Numbers' : 'Your Entry'
 })
 
 const otherlinks = computed(() => {
@@ -109,7 +109,7 @@ function saveDrawing() {
 }
 
 function save() {
-    if (isWinning) {
+    if (isWinning.value) {
         saveDrawing();
     } else {
         saveEntry();
@@ -156,6 +156,7 @@ function reset() {
             </template>
             <template v-if="submitted">
                 <template v-if="!isWinning">
+                    <RouterLink :to="{ path: otherlinks.check }">check drawing</RouterLink>
                     <button @click="reset()">enter another try</button>
                 </template>
                 <template v-if="isWinning">
