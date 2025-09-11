@@ -42,7 +42,7 @@ const MANUAL_LINK = computed(() => {
     <h1>{{ route.params.lottery }}</h1>
     <p>{{ USDate }}</p>
     <div v-if="!CURRENT_DRAWING">
-        <p>No data for {{ USDate }}</p>
+        <p>No data for this drawing</p>
         <RouterLink :to="{ path: MANUAL_LINK, query:{'drawing':'true'} }">Enter Manually</RouterLink>
     </div>
     <div v-if="t && CURRENT_DRAWING">

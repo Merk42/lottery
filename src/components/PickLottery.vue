@@ -84,7 +84,7 @@ function nextDrawingDate(target:number):string{
 <template>
     <section>
         <h2>Powerball</h2>
-    
+        <img src="/powerball.png"/>
 
 <div class="links">
 <RouterLink :to="{ path: powerballlinks.checkprev }" >Check</RouterLink>    
@@ -98,7 +98,7 @@ function nextDrawingDate(target:number):string{
 </section>
 <section>
     <h2>Megamillions</h2>
-
+<img src="/megamillions.png"/>
 
 <div class="links">
 <RouterLink :to="{ path: megamillionslinks.checkprev }">Check</RouterLink>    
@@ -123,5 +123,10 @@ function nextDrawingDate(target:number):string{
 a {
     display: inline-block;
     border: 1px solid black;
+}
+img{
+    display:block;
+    max-width: 100%;
+    margin-inline:auto;
 }
 </style>
