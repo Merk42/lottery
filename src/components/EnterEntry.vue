@@ -31,7 +31,7 @@ const maxExtra = computed(() => {
 
 const preview = computed<ATTEMPT>(() => {
     return {
-        base:baseNumbers.value.sort(),
+        base:baseNumbers.value,
         extra:extraNumber.value[0]
     }
 })
