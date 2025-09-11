@@ -48,12 +48,12 @@ const basematched = computed(() => {
 }
 
 .powerball .extra {
-    --_bg:red;
+    --_bg:var(--powerballred);
     --_color:white;
 }
 
 .megamillions .extra {
-    --_bg:yellow;
+    --_bg::var(--megamillionsyellow);
 }
 div {
     display:flex;

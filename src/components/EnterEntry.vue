@@ -201,11 +201,11 @@ p {
     color:gray;
 }
 .powerball .extra .ball {
-    background-color: red;
+    background-color: var(--powerballred);
     color:white
 }
 .megamillions .extra .ball {
-    background-color: yellow;
+    background-color: var(--megamillionsyellow);
 }
 .ball:has(:checked) {
     outline:2px solid blue
