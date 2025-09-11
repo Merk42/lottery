@@ -165,13 +165,14 @@ function reset() {
 </template>
 
 <style scoped lang="css">
+h1,
+p {
+    margin: 0;
+}
 .layout {
     display: inline-grid;
-    
-    gap:.5rem;
+    gap:1rem;
 }
-
-
 .grid {
     --_across:10;
     display:inline-grid;
@@ -191,7 +192,6 @@ function reset() {
     text-align: center;
     border-radius: 100vw;
     border:2px solid canvasText;
-    
 }
 .ball:not(:has(:disabled)) {
     cursor: pointer;
@@ -217,11 +217,13 @@ input[type="checkbox"] {
 @media screen and (width <= 640px) {
     .ball{
         --_size:1rem;
+        font-size: .875rem;
     }
 }
 @media screen and (width > 768px) {
     .extra.grid{
-         --_across:5;
+        --_across:5;
+        align-self: start;
     }
     .layout{
         grid-template-columns: 2fr 1fr;
