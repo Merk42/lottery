@@ -96,10 +96,10 @@ function USDate(date:string) {
     <section>
         <img src="/powerball.png"/>
         <div class="links">
-            <h2>{{ powerballlinks.prevdate }}</h2>
+            <h2>Previous Drawing: {{ powerballlinks.prevdate }}</h2>
             <RouterLink :to="{ path: powerballlinks.checkprev }">Check</RouterLink>    
             <RouterLink :to="{ path: powerballlinks.enterprev }">Enter</RouterLink>
-            <h2>{{ powerballlinks.nextdate }}</h2>
+            <h2>Upcoming Drawing: {{ powerballlinks.nextdate }}</h2>
             <RouterLink :to="{ path: powerballlinks.checknext }">Check</RouterLink>    
             <RouterLink :to="{ path: powerballlinks.enternext }">Enter</RouterLink>
         </div>
@@ -107,10 +107,10 @@ function USDate(date:string) {
     <section>
         <img src="/megamillions.png"/>
         <div class="links">
-            <h2>{{ megamillionslinks.prevdate }}</h2>
+            <h2>Previous Drawing: {{ megamillionslinks.prevdate }}</h2>
             <RouterLink :to="{ path: megamillionslinks.checkprev }">Check</RouterLink>    
             <RouterLink :to="{ path: megamillionslinks.enterprev }">Enter</RouterLink>
-            <h2>{{ megamillionslinks.nextdate }}</h2>
+            <h2>Upcoming Drawing: {{ megamillionslinks.nextdate }}</h2>
             <RouterLink :to="{ path: megamillionslinks.checknext }">Check</RouterLink>    
             <RouterLink :to="{ path: megamillionslinks.enternext }">Enter</RouterLink>
         </div>
