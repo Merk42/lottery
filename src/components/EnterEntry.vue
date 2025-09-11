@@ -13,6 +13,12 @@ const EXTRALENGTH = 1;
 const baseNumbers = ref<number[]>([]);
 const extraNumber = ref<number[]>([]);
 
+const submitted = ref<boolean>(false);
+
+const isWinning = computed(() => {
+    return route.query.drawing === 'true';
+})
+
 
 const highest = computed<number>(() => {
     return TYPE.value === 'powerball' ? 69 : 70
@@ -51,6 +57,17 @@ const DR = {
     extra: 0
 }
 
+const title = computed(() => {
+    return isWinning ? 'Winning Numbers' : 'Your Entry'
+})
+
+const otherlinks = computed(() => {
+    return {
+        enter: `/etc/lottery/enter/${TYPE}/${DATE}`,
+        check: `/etc/lottery/check/${TYPE}/${DATE}`
+    }
+})
+
 function saveEntry() {
     const local = localStorage.getItem(DATE.value);
     let data;
@@ -73,6 +90,7 @@ function saveEntry() {
         }
     }
     localStorage.setItem(DATE.value, JSON.stringify(data))
+    submitted.value = true;
 }
 
 function saveDrawing() {
@@ -87,14 +105,21 @@ function saveDrawing() {
         ]
     }
     localStorage.setItem(`drawing-${DATE.value}`, JSON.stringify(data))
+    submitted.value = true;
 }
 
 function save() {
-    if (route.query.drawing === 'true') {
+    if (isWinning) {
         saveDrawing();
     } else {
-       saveEntry();
+        saveEntry();
     }
+}
+
+function reset() {
+    baseNumbers.value = [];
+    extraNumber.value = [];
+    submitted.value = false;
 }
 </script>
 <template>
@@ -123,9 +148,21 @@ function save() {
                     v-model="extraNumber" />
             </label>
         </div>
+        <p class="allcolumns">{{ title }}</p>
         <Result :drawing="DR" :attempt="preview" class="allcolumns"/>
         <div class="allcolumns" style="text-align: center;">
-            <button @click="save()" :disabled="!maxNumbers || !maxExtra">submit</button>
+            <template v-if="!submitted">
+                <button @click="save()" :disabled="!maxNumbers || !maxExtra">submit</button>
+            </template>
+            <template v-if="submitted">
+                <template v-if="!isWinning">
+                    <button @click="reset()">enter another try</button>
+                </template>
+                <template v-if="isWinning">
+                    <RouterLink :to="{ path: otherlinks.check }">check drawing</RouterLink>
+                    <RouterLink :to="{ path: otherlinks.enter }">enter tries</RouterLink>        
+                </template>
+            </template>
         </div>
     </div>
 </template>
