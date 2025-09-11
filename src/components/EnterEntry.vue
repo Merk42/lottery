@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import Result from './Result.vue';
-import type { ATTEMPT } from '../types';
+import type { ATTEMPT, DRAWING, PLAYER_ENTRIES } from '../types';
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
@@ -70,7 +70,7 @@ const otherlinks = computed(() => {
 
 function saveEntry() {
     const local = localStorage.getItem(DATE.value);
-    let data;
+    let data:PLAYER_ENTRIES;
     if (local) {
         data = JSON.parse(local)
         data.attempts.push({
@@ -94,15 +94,11 @@ function saveEntry() {
 }
 
 function saveDrawing() {
-    let data = {
+    let data:DRAWING = {
         name: TYPE.value,
         date: DATE.value,
-        attempts: [
-            {
-                base: baseNumbers.value,
-                extra: extraNumber.value[0]
-            }
-        ]
+        base: baseNumbers.value,
+        extra: extraNumber.value[0]
     }
     localStorage.setItem(`drawing-${DATE.value}`, JSON.stringify(data))
     submitted.value = true;

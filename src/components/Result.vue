@@ -6,6 +6,9 @@ const props = defineProps<{
   attempt: ATTEMPT
 }>();
 const basematched = computed(() => {
+    if (!props.drawing?.base?.length) {
+        return []
+    }
     return props.attempt.base.sort(function(a, b) {
         return a - b;
         }).map( num => {
