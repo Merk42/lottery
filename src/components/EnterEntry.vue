@@ -46,17 +46,10 @@ const DATE = computed<string>(() => {
 
 const DR = {
     name: TYPE.value,
-    date: "2025-09-06",
+    date: "",
     base: [],
     extra: 0
 }
-/*
-Mega Millions
- Tuesday and Friday
-
-Powerball
- Monday, Wednesday and Saturday
-*/
 
 function saveEntry() {
     const local = localStorage.getItem(DATE.value);

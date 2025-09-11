@@ -7,7 +7,8 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 
 const USDate = computed(() => {
-    return new Intl.DateTimeFormat("en-US").format( new Date(route.params.date?.toString() ?? ''))
+    const TIME = `${route.params.date}T00:00:00`;
+    return new Intl.DateTimeFormat("en-US").format( new Date(TIME))
 })
 
 const DATE = computed<string>(() => {

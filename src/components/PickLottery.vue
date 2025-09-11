@@ -69,14 +69,14 @@ const megamillionslinks = computed<linkgroup>(() => {
 function previousDrawingDate(target:number):string{
     let date = new Date();
     if (date.getDay() !== target) {
-        date.setDate(date.getDate() - ( date.getDay() == target ? 7 : (date.getDay() + (7 - target)) % 7 ))
+        date.setDate(date.getDate() - ( date.getDay() + (7 - target)) % 7 )
     }
     return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${(date.getDate()).toString().padStart(2, '0')}`
 }
 function nextDrawingDate(target:number):string{
     let date = new Date();
     if (date.getDay() !== target) {
-        date.setDate(date.getDate() + ( date.getDay() == target ? 7 : (date.getDay() + (7 - target)) % 7 ))
+        date.setDate(date.getDate() + (((target - date.getDay()) + 7) % 7) )
     }
     return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${(date.getDate()).toString().padStart(2, '0')}`
 }
